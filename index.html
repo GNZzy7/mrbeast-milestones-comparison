@@ -415,7 +415,7 @@
       if (lastCount == 0) {
         document.getElementById('current').getElementsByClassName('count')[0].textContent = data.channelDetails.linearEstSubscriberCount.toLocaleString('en-US');
       } else {
-        animateValue(document.getElementById('current').getElementsByClassName('count')[0], lastCount, data.channelDetails.linearEstSubscriberCount, 3000);
+        animateValue(document.getElementById('current').getElementsByClassName('count')[0], lastCount, data.channelDetails.linearEstSubscriberCount, 2000);
       }
 
       gapHistory.push([curHistory.slice(-1)[0][1], curHistory.slice(-1)[0][1] + 1_000_000, curHistory.slice(-1)[0][0], (Date.now() - new Date(curHistory.slice(-1)[0][0]).getTime()) / parseInt(data.channelDetails.linearEstSubscriberCount.toString().slice(3)) * 1_000_000, lastCount, data.channelDetails.linearEstSubscriberCount, Math.floor(parseInt(data.channelDetails.linearEstSubscriberCount.toString().slice(3)) / timeSinceCurrentMilestone * 86_400_000)]);
@@ -470,7 +470,7 @@
         let preSubCount = gapHistory[i][4] !== undefined ? gapHistory[i][4]: timeSinceCurrentMilestone >= gapHistory[i][3] ? gapHistory[i][1]: Math.floor(gapHistory[i][0] + (Math.max(curTimeSince - 2000, 0) / gapHistory[i][3] * 1_000_000));
         let curSubCount = gapHistory[i][5] !== undefined ? gapHistory[i][5]: timeSinceCurrentMilestone >= gapHistory[i][3] ? gapHistory[i][1]: Math.floor(gapHistory[i][0] + (curTimeSince / gapHistory[i][3] * 1_000_000));
 
-        animateValue(document.getElementsByClassName('box')[i+1].getElementsByClassName('count')[0], preSubCount, curSubCount, 3000);
+        animateValue(document.getElementsByClassName('box')[i+1].getElementsByClassName('count')[0], preSubCount, curSubCount, 2000);
         document.getElementsByClassName('box')[i+1].getElementsByClassName('progress-bar')[0].style.width = curSubCount == gapHistory[i][1] ? "100%": curSubCount < 100_000_000 ? (parseInt(curSubCount.toString().slice(2)) / 1_000_000 * 100) + "%": (parseInt(curSubCount.toString().slice(3)) / 1_000_000 * 100) + "%";
         document.getElementsByClassName('box')[i+1].getElementsByClassName('milestone-text')[0].textContent = `${gapHistory[i][0] / 1_000_000}M - ${gapHistory[i][1] / 1_000_000}M`;
         document.getElementsByClassName('box')[i+1].getElementsByClassName('info-1')[0].textContent = `${formatDate(gapHistory[i][2])} - ${formatTimeElapsed(curTimeSince)}`;
